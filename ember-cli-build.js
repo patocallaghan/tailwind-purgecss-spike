@@ -10,7 +10,10 @@ const purgeCSS = {
       // add extra paths here for components/controllers which include tailwind classes
       './app/index.html',
       './app/templates/**/*.hbs',
-      './app/components/**/*.hbs'
+      './app/components/**/*.hbs',
+      // Specifically including ember-modal-dialog as a directory to look at
+      './node_modules/ember-modal-dialog/addon/**/*.*',
+      './node_modules/ember-modal-dialog/app/**/*.*',
     ],
     defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
   }
@@ -28,7 +31,7 @@ module.exports = function(defaults) {
             }
           },
           require('tailwindcss')('./config/tailwind.config.js'),
-          [purgeCSS]
+          ...[purgeCSS]
         ]
       }
     }
