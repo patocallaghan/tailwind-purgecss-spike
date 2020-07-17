@@ -33,5 +33,10 @@ module.exports = function(defaults) {
       }
     }
   });
+
+  // Import Ember Modal Dialog CSS to avoid being purged
+  app.import('node_modules/ember-modal-dialog/app/styles/ember-modal-dialog/ember-modal-appearance.css');
+  app.import('node_modules/ember-modal-dialog/app/styles/ember-modal-dialog/ember-modal-structure.css');
+
   return app.toTree();
 };
