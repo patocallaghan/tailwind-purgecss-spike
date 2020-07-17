@@ -28,7 +28,7 @@ module.exports = function(defaults) {
             }
           },
           require('tailwindcss')('./config/tailwind.config.js'),
-          [purgeCSS]
+          ...[purgeCSS]
         ]
       }
     }
