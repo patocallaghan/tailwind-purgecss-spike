@@ -27,8 +27,8 @@ module.exports = function(defaults) {
               path: ['node_modules']
             }
           },
-          require('tailwindcss')('./app/tailwind.config.js'),
-          ...isProduction ? [purgeCSS] : []
+          require('tailwindcss')('./config/tailwind.config.js'),
+          [purgeCSS]
         ]
       }
     }
