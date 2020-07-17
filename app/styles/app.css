@@ -7,3 +7,9 @@
 
 @import "tailwindcss/utilities";
 @import "utilities.css";
+
+/* Ember Modal Dialog */
+/*! purgecss start ignore */
+@import "ember-modal-dialog/ember-modal-structure.css";
+@import "ember-modal-dialog/ember-modal-appearance.css";
+/*! purgecss end ignore */
