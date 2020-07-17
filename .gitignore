@@ -11,6 +11,8 @@
 # misc
 /.env*
 /.pnp*
+/.vscode
+/jsconfig.json
 /.sass-cache
 /connect.lock
 /coverage/
