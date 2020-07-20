@@ -19,3 +19,8 @@
 /*! purgecss start ignore */
 @import "ember-power-calendar";
 /*! purgecss end ignore */
+
+/* Add Tailwind apply */
+span {
+  @apply font-bold;
+}
