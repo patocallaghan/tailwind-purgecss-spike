@@ -4,12 +4,18 @@
 
 @import "tailwindcss/components";
 @import "components.css";
+@import "sass-test";
 
 @import "tailwindcss/utilities";
+/* utilities.css */
 @import "utilities.css";
 
 /* Ember Modal Dialog */
 /*! purgecss start ignore */
-@import "ember-modal-dialog/ember-modal-structure.css";
-@import "ember-modal-dialog/ember-modal-appearance.css";
+@import "ember-modal-dialog/ember-modal-structure";
+@import "ember-modal-dialog/ember-modal-appearance";
+
+/* Ember Power Calendar */
+/*! purgecss start ignore */
+@import "ember-power-calendar";
 /*! purgecss end ignore */

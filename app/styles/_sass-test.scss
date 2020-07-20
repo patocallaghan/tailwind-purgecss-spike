@@ -1,0 +1,96 @@
+$color: red;
+$text-color: blue;
+// variables, nesting, reference symbol + comment
+.sass-test {
+  margin: 20px 10px;
+  background-color: $color;
+  & p {
+    color: $text-color;
+  }
+}
+
+// interpolation
+$element: "span";
+.sass-test #{$element} {
+  color: pink;
+}
+
+// mixins and other madness
+@mixin cr-color($value) {
+  @include replaceable-property-with-color-in-value-list('color', $value);
+}
+
+$colorMapList: ();
+$colorMapList: append(
+  $colorMapList,
+  (
+    'name': 'example-color-map',
+    'green': '#32cd32',
+  )
+);
+
+@mixin replaceable-property-with-color-in-value-list($propertyName, $values) {
+  #{$propertyName}: $values;
+  $firstListItem: nth($values, 1);
+  @each $colorMap in $colorMapList {
+    .color-map__#{map-get($colorMap, 'name')} & {
+      @if (type-of($firstListItem) == 'list') {
+        $newValues: ();
+        @each $value in $values {
+          $newList: replace-color-in-list($value, $colorMap);
+          $newValues: append($newValues, $newList, comma);
+        }
+        #{$propertyName}: $newValues;
+      } @else {
+        #{$propertyName}: replace-color-in-list($values, $colorMap);
+      }
+    }
+  }
+}
+
+@function normalize-color($value) {
+  $red: red($value);
+  $green: green($value);
+  $blue: blue($value);
+  @return encode-color(rgb($red, $green, $blue));
+}
+
+@function encode-color($string) {
+  @if (type-of($string) == 'color') {
+    $hex: str-slice(ie-hex-str($string), 4);
+    $string: unquote('#{$hex}');
+  }
+  $string: '#' + to-lower-case($string);
+  @return $string;
+}
+
+@function color-in-color-map($value, $colorMap) {
+  $normalizedValue: normalize-color($value);
+  $alphaComponent: alpha($value);
+  $colorFound: map-get($colorMap, '#{$normalizedValue}');
+  @if ($colorFound) {
+    @if ($alphaComponent == 1) {
+      @return $colorFound;
+    } @else {
+      @return rgba($colorFound, $alphaComponent);
+    }
+  } @else {
+    @return $value;
+  }
+}
+
+@function replace-color-in-list($list, $colorMap) {
+  $separator: list-separator($list);
+  $newList: ();
+  @each $value in $list {
+    @if (type-of($value) == 'color') {
+      $value: color-in-color-map($value, $colorMap);
+    }
+    $newList: append($newList, $value);
+  }
+  @return join($newList, (), $separator);
+}
+
+.sass-test #{$element}.green {
+  @include cr-color(green);
+}
